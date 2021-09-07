@@ -1,0 +1,1 @@
+SOURCES += tex/docstyle.sty

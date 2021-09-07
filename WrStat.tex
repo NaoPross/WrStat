@@ -1,0 +1,435 @@
+\documentclass[a4paper]{article}
+
+%
+% Packages
+%
+
+%% styling for this document
+\usepackage{tex/docstyle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+
+\usepackage{graphicx}
+
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+
+\usepackage{enumitem}
+\usepackage{parskip}
+
+\usepackage{polyglossia}
+\setmainlanguage[variant=swiss]{german}
+
+
+%
+% Metadata
+%
+
+\title{}
+\author{
+  Naoki Pross%\footnote{University of Applied Sciences of Eastern Switzerland}
+}
+\date{}
+
+%
+% Document
+%
+
+
+\renewcommand{\P}[1]{\mathrm{P}(#1)}
+\newcommand{\given}{\,|\,}
+\newcommand{\E}[1]{\mathrm{E}(#1)}
+\newcommand{\Var}[1]{\mathrm{Var}(#1)}
+\newcommand{\Cov}[1]{\mathrm{Cov}(#1)}
+\DeclareMathOperator{\med}{\mathrm{med}}
+
+\begin{document}
+
+{\bfseries \huge \noindent
+  Formelblatt --- Wahrscheinlichkeit und Statistik
+}
+
+\vspace{5mm}
+
+\renewcommand{\arraystretch}{2}
+
+\aboverulesep=0pt
+\belowrulesep=0pt
+
+\rowcolors{3}{lightgray!20}{white}
+
+\noindent
+\begin{tabularx}{\linewidth}{%
+    | >{\columncolor{black}\cellcolor{black}}p{3mm} m{10.5cm} X |
+  }
+  \hline
+  & \textbf{Produktregel} \newline \(k\) Positionen m\"ussen unabh\"angig von einadner markiert werden, wobai \(n_i\) verschiedene Markierungen zur Verf\"ugung stehen.
+  & \(\displaystyle n_1 n_2\cdots n_k = \prod_{i=1}^k n_i \)
+  \\
+
+  & \textbf{Permutation} \newline Auf wie viele Arten lassen sich \(n\) verschiedene Objekte anordnen?
+  & \(\displaystyle P_n = n(n-1)(n-2)\cdots1 = n! \)
+  \\
+
+  & \textbf{Kombination} \newline Auf wie vielen Arten kann man \(k\) aus \(n\) verschiedenen Objekte ausw\"ahlen?
+  & \(\displaystyle C_n^k = {n \choose k} = \frac{n!}{k!(n-k)!}\)
+  \\
+
+  \multirow{-7}{*}{\centering
+    \rotatebox[origin = c]{90}{
+      \textcolor{white}{\bfseries Kombinatorik}
+    }
+  }
+  & \textbf{Variation} \newline Auf wie viele Arten kann man \(k\) mal unter \(n\) verschiedenen Objekten ausw\"ahlen?
+  & \(\displaystyle V_{n,k} = n^k \)
+  \\
+  \hline
+\end{tabularx}
+
+\vspace{3mm}
+
+\noindent
+\begin{tabularx}{\linewidth}{%
+    | >{\cellcolor{black}}p{3mm} m{5cm} X |
+  }
+
+  \hline
+
+  & \textbf{Ereignis}
+  &
+  \(
+    \Omega = (\text{sicheres Ereignis}) \quad
+    \emptyset = (\text{unm\"ogliches Ereignis}) \quad
+    A,B \subseteq \Omega
+  \)
+  \newline
+  \(
+    A \cap B = (A \text{ und } B) \quad
+    A \cup B = (A \text{ oder } B) \quad
+    \bar{A} = \Omega \setminus A = (\text{nicht } A)
+  \)
+  \\[5pt]
+
+  & \textbf{Wahrscheinlichkeit}
+  & \(\displaystyle
+    \mathrm{P}: \Omega \to [0;1] \quad
+    \P{\emptyset} = 0 \quad
+    \P{\Omega} = 1 \quad
+    \P{\bar{A}} = 1 - \P{A}
+  \) \newline
+  \(A\) und \(B\) unabh\"angig \(\iff \P{A \cap B} = \P{A}\cdot\P{B}\)
+  \\[5pt]
+
+  & \textbf{Bedingte Wahrscheinlichkeit} \newline Wahrscheinlichkeit von \(A\) wenn \(B\) bereits eingetreten ist
+  & \(\displaystyle
+    \P{A \given B} = \frac{\P{A \cap B}}{\P{B}}
+    \stackrel{\text{\footnotesize unabh.}}{=} \P{A} \qquad
+    \P{\bar{A} \given B} = 1 - \P{A \given B}
+  \)
+  \\[5pt]
+
+  & \textbf{Totale Wahrscheinlichkeit}
+  & \(\displaystyle
+    \P{A} = \sum_i \P{A \given B_i} \qquad
+    A \subset \bigcup_i B_i
+  \)
+  \\[8pt]
+
+  & \textbf{Satz von Bayes}
+  & \(
+  \P{A \given B} \cdot \P{B} = \P{B \given A} \cdot \P{A} = \P{A \cap B}
+  \)
+  \\[5pt]
+
+  %% TODO: fix this dimexpr
+  & \multicolumn{2}{p{\dimexpr\linewidth-12mm} | }{
+    \textbf{Experimente} \newline
+    In einem Laplace Experiment haben alle Elementarereignisse die gleiche Wahrscheinlichkeit. In einem Bernoulli Experiment es gibt nur 2 Ereignisse \(A\) und \(\bar{A}\) mit Wahrscheinlichkeiten \(p\) und \(1-p\).
+  }
+  \\[5pt]
+
+  & \textbf{Zufallsvariable}
+  & \(
+    X : \Omega \to U \subseteq \mathbb{R} \quad
+    \text{Ereignisse} \subset \Omega \,\text{ wie }\, \{ X = k \}, \{ X \leq x \}, \{ X > x \}
+  \)
+  \\[5pt]
+
+  & \textbf{Erwartungswert}
+  & \(\displaystyle
+    \E{X} = \sum_{x \in U} x\cdot \P{X = x} \qquad
+    \E{X + Y} = \E{X} + \E{Y}
+  \)
+  \newline
+  \(
+    \E{\lambda X} = \lambda \E{X} \qquad
+    \E{XY} \stackrel{\text{\footnotesize unabh.}}{=} \E{X}\E{Y}
+  \)
+  \\[5pt]
+
+  & \textbf{Varianz} \newline Mass f\"ur Streuung der Werte % \newline Quadratische Abweichung
+  & \(\Var{X} = \E{(X - \E{X})^2} = \E{X^2} - \E{X}^2\) \newline
+  \(
+    \Var{\lambda X} = \lambda^2 \Var{X} \qquad
+    \Var{X + Y} \stackrel{\text{\footnotesize unabh.}}{=} \Var{X} + \Var{Y} 
+  \)
+  \\[5pt]
+
+  & \textbf{Covarianz}
+  & \(\Cov{X,Y} = \E{XY} - \E{X}\E{Y} \stackrel{\text{\footnotesize unabh.}}{=} 0\)
+  \\[5pt]
+
+  \multirow{-21}{*}{\centering
+    \rotatebox[origin = c]{90}{
+      \textcolor{white}{\bfseries Wahrscheinlichkeit}
+    }
+  }
+  & \textbf{Satz von Tschebyscheff}
+  &
+  \\[5pt]
+  \hline
+\end{tabularx}
+
+\vspace{3mm}
+
+\noindent
+\begin{tabularx}{\linewidth}{%
+    | >{\cellcolor{black}}p{3mm} m{4.5cm} X |
+  }
+  \hline
+  & \textbf{Verteilungsfunktion}
+  &
+  ZV ist verteilt \(X \sim \mathcal{V}\) mit \(F : \mathbb{R} \to [0,1]\) monoton steigend \newline
+  \(
+    F(x) = \P{X \leq x} \qquad
+    F(x\to\infty) = 1\) \qquad
+    \(F(x\to-\infty) = 0
+  \)
+  \\[8pt]
+
+  & \textbf{Median}
+  & \(\displaystyle \med X = \inf \left\{ x : F(x) = 0.5 \right\} \)
+  \\[4pt]
+
+  & \textbf{Dichtefunktion}
+  & \(\displaystyle
+    \varphi(x) = \frac{dF}{dx} \qquad
+    \P{a \leq X \leq b} = \int_a^b \varphi \,dx \qquad
+    1 = \int_\mathbb{R} \varphi \,dx
+  \)
+  \\[8pt]
+
+  & \textbf{Erwartungswert}
+  & \(\displaystyle
+    \E{X} = \int_\mathbb{R} x \varphi(x) \,dx \qquad
+    \E{X^n} = \int_\mathbb{R} x^n \varphi(x) \, dx
+  \)
+  \\[8pt]
+
+  & \textbf{Variablentransformation}
+  & \(\displaystyle
+    Y = g(X) \qquad
+    \varphi_Y = \frac{\varphi_X}{g'} \circ g^{-1}
+  \)
+  \\[8pt]
+
+  & \textbf{Standardisierung}
+  & \(\displaystyle
+    X \sim \mathcal{N}(\mu, \sigma) \qquad
+    Z = \frac{X - \mu}{\sigma} \sim \mathcal{N}(0,1)
+  \)
+  \\[8pt]
+
+  \multirow{-9}{*}{\centering
+    \rotatebox[origin = c]{90}{
+      \textcolor{white}{\bfseries W'keitsverteliung}
+    }
+  }
+  & \textbf{Rechenregeln}
+  &
+  \\[8pt]
+  \hline
+\end{tabularx}
+
+\vspace{3mm}
+
+{
+\noindent
+\renewcommand{\arraystretch}{2.1}
+\begin{tabularx}{\linewidth}{%
+    | >{\cellcolor{black}}p{3mm} m{4.5cm} X c c c |
+  }
+
+  \hline
+  & \bfseries Name
+  & \(X \sim\)
+  & \(\varphi(x) \text{ oder } \P{X = k}\)
+  & \(\E{X}\)
+  & \(\Var{X}\)
+  \\[5pt]
+  \hline
+  
+  & \textbf{Gleichverteilung} \newline Laplace Experimente
+  & \(\displaystyle \mathcal{U}(a,b)\)
+  & \(\displaystyle \frac{1}{b-a} \cdot \mathds{1}_{[a,b]} \)
+  & \(\displaystyle \frac{a + b}{2}\)
+  & \(\displaystyle \frac{(b - a)^2}{12} \)
+  \\[5pt]
+
+  & \textbf{Exponentialverteilung} \newline Halbwertszeit \(t_\frac{1}{2} = \log(2)/a\)
+  & \(\displaystyle \mathcal{E}(a)\)
+  & \(\displaystyle ae^{-ax} \cdot \mathds{1}_{[0,\infty)} \)
+  & \(\displaystyle \frac{1}{a}\)
+  & \(\displaystyle \frac{1}{a^2}\)
+  \\[5pt]
+
+  & \textbf{Normalverteilung} \newline Viele unabh. ZV
+  & \(\displaystyle \mathcal{N}(\mu, \sigma)\)
+  & \(\displaystyle \frac{1}{\sigma \sqrt{2\pi}} \cdot e^{-(x-\mu)^2 / 2\sigma^2} \)
+  & \(\displaystyle \mu\)
+  & \(\displaystyle \sigma^2 \)
+  \\[5pt]
+
+  & \textbf{Potenzverteilung} \newline Pareto Verteilung
+  & \(\displaystyle \mathrm{Pow}(x_\textrm{m}, \alpha)\)
+  &
+  % \(\displaystyle \frac{\alpha - 1}{x_\textrm{m}} \left(
+  %   \frac{x}{x_\textrm{m}}
+  % \right)^{-\alpha} \mathds{1}_{[x_\textrm{m},\infty)}\)
+  & \(\displaystyle x_\textrm{m} \cdot \frac{\alpha - 1}{\alpha - 2}\)
+  &
+  % \(\displaystyle \left(
+  %   \frac{\alpha - 1}{\alpha - 3} - \left(
+  %     \frac{\alpha - 1}{\alpha - 2}
+  %   \right)^2
+  % \right) x_\textrm{m}^2\)
+  \\[5pt]
+
+  & \textbf{Chi--Quadrat V.} \newline F\"ur das \(\chi^2\) Test
+  & \(\displaystyle \mathcal{X}^2(k)\)
+  &
+  &
+  &
+  \\[5pt]
+
+  \hline
+
+  & \textbf{Geometrische V.}
+  & \(\displaystyle \mathcal{G}(p)\)
+  & \(\displaystyle p(1-p)^k \)
+  & \(\displaystyle \frac{1}{p}\)
+  & \(\displaystyle \frac{1-p}{p^2}\)
+  \\[5pt]
+
+  & \textbf{Hypergeometrische V.}
+  & \(\displaystyle \mathcal{H}(N,R,n)\)
+  & \({R \choose k}{N-R \choose n-k} / {N \choose n} \)
+  & \(\displaystyle \frac{nR}{N}\)
+  & \(\displaystyle \frac{nR}{N} \left(1 - \frac{R}{N}\right) \frac{N - n}{N - 1}\)
+  \\[5pt]
+
+  & \textbf{Poissonverteilung} \newline Seltener Ereignisse
+  & \(\displaystyle \mathcal{P}(\lambda)\)
+  & \(\displaystyle \frac{\lambda^k}{k!} e^{-\lambda} \)
+  & \(\displaystyle \lambda\)
+  & \(\displaystyle \lambda\)
+  \\[5pt]
+
+  \multirow{-12}{*}{\centering
+    \rotatebox[origin = c]{90}{
+      \textcolor{white}{\bfseries Katalog von W'keitsverteliungen}
+    }
+  }
+  & \textbf{Binomialverteilung} \newline Bernoulli Experimente \newline
+  & \(\displaystyle \mathcal{B}(n,p)\)
+  & \(\displaystyle {n \choose k} p^k (1 - p)^{n - k} \)
+  & \(\displaystyle np\)
+  & \(\displaystyle np(1 - p) \)
+  \\[5pt]
+
+  %% TODO: fix this dimexpr and manual cell color
+  &
+  \multicolumn{5}{p{\dimexpr\linewidth-12mm} | }{
+    % \cellcolor{lightgray!20}
+    \cellcolor{white}
+    F\"ur grosse \(n\) wird \(\mathcal{B}(n,p)\)
+    \(\displaystyle \approx \mathcal{N}\left(\mu = np, \sigma = \sqrt{np(1-p)}\right) \)
+    und f\"ur kleine \(p\) (selten) ist
+    \(\displaystyle \approx \mathcal{P}\left(\lambda = np\right) \).
+  }
+  \\[4pt]
+
+  \hline
+\end{tabularx}
+}
+
+\vspace{3mm}
+
+\noindent
+\setlength{\parskip}{55pt}
+\begin{tabularx}{\linewidth}{%
+    | >{\cellcolor{black}}p{3mm} m{4.5cm} X |
+  }
+  \hline
+
+
+  & \textbf{Regression} \newline Lineares Modell
+  & \(\displaystyle 
+    \text{ZV } X, Y \qquad
+    y \approx ax + b \qquad
+    a = \frac{\Cov{X,Y}}{\Var{X}} \qquad
+    b = \E{Y} - a\E{X}
+  \)
+  \\
+  & \textbf{Regressionskoeffizient}
+  & \(\displaystyle
+    r = \frac{\Cov{X,Y}}{\sqrt{\Var{X}\Var{Y}}} \qquad
+    r^2 \approx 1 \implies \text{gute Approx.}
+  \)
+  \\
+
+  &&\\
+  &&\\
+  &&\\
+  &&\\
+
+  \multirow{-5}{*}{\centering
+    \rotatebox[origin = c]{90}{
+      \textcolor{white}{\bfseries Sch\"atzen}
+    }
+  }
+  & \textbf{}
+  &
+  \\
+  \hline
+\end{tabularx}
+
+\noindent
+\begin{tabularx}{\linewidth}{%
+    | >{\cellcolor{black}}p{3mm} m{4.5cm} X |
+  }
+  \hline
+
+  &&\\
+  &&\\
+  &&\\
+  &&\\
+
+  \multirow{-5}{*}{\centering
+    \rotatebox[origin = c]{90}{
+      \textcolor{white}{\bfseries Hypotesentesten}
+    }
+  }
+  & \textbf{}
+  &
+  \\
+  \hline
+\end{tabularx}
+
+\end{document}
